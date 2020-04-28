@@ -1,9 +1,5 @@
-# This is a basic workflow to help you get started with Actions
+name: Update plots for watching COVID-19 Tokyo confirmed cases
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
@@ -16,8 +12,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Run a multi-line script
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Update plots
       run: |
-        apt-get install -y python3-pip
-        pip3 install -r requirements.txt
+        python -m pip install -r requirements.txt
+        python watch-tokyo-confirmed-patients.py
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "update plots" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
