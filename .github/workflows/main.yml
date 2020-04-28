@@ -3,8 +3,8 @@ name: Update plots for watching COVID-19 Tokyo confirmed cases
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  schedule:
+    - cron: '0 6 * * *'
 
 jobs:
   build:
@@ -24,9 +24,12 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git checkout -b daily-watch
         git add plots/*.png
         git commit -m "update plots"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'daily-watch'
+        force: true
