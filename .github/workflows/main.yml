@@ -24,7 +24,8 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "update plots" -a
+        git commit add plots/*.png
+        git commit -m "update plots"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
