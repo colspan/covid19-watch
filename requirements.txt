@@ -1,0 +1,9 @@
+descartes
+geopandas
+jupyter
+matplotlib
+numpy
+pillow
+pyshp
+scipy
+sqlalchemy
