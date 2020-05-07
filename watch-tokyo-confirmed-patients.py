@@ -41,7 +41,7 @@ reference_dates = pd.to_datetime([
     '2020-02-04',
     '2020-03-03',
     '2020-03-31',
-    '2020-04-19'
+    '2020-04-28'
 ])
 plt.ylabel("Confirmed number of positive patients")
 plt.vlines(reference_dates, 0, 100, "red", linestyles='dashed')
