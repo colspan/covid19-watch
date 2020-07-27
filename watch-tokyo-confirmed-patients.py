@@ -67,9 +67,10 @@ df_by_age = df_by_age.rename(columns={
     '90代': '90',
     '100歳以上': '100',
 })
-# df_by_age['70'] = df_by_age.apply(lambda x: x['70'] + x['80'] + x['90'] + x['100'], axis=1)
+df_by_age['15'] = df_by_age.apply(lambda x: x['10歳未満'] + x['15'], axis=1)
+df_by_age['70'] = df_by_age.apply(lambda x: x['70'] + x['80'] + x['90'] + x['100'], axis=1)
 df_by_age = df_by_age.drop(
-    columns=['-', '10歳未満', '不明', '80', '90', '100'], axis=1)
+    columns=['\'-', '10歳未満', '不明', '80', '90', '100'], axis=1)
 df_by_age
 
 
