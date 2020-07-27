@@ -1,35 +1,36 @@
-# name: Update plots for watching COVID-19 Tokyo confirmed cases
+name: Update plots for watching COVID-19 Tokyo confirmed cases
 
-# on:
-#   push:
-#     branches: [ master ]
-#   schedule:
-#     - cron: '0 6 * * *'
+on:
+  push:
+    # branches: [ master ]
+  # schedule:
+    # - cron: '0 6 * * *'
+    branches-ignore: # disable this workflow
+      - '**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Set up Python 3.8
-#       uses: actions/setup-python@v1
-#       with:
-#         python-version: 3.8
-#     - name: Update plots
-#       run: |
-#         python -m pip install -r requirements.txt
-#         python watch-tokyo-confirmed-patients.py
-#     - name: Commit files
-#       run: |
-#         git config --local user.email "action@github.com"
-#         git config --local user.name "GitHub Action"
-#         git checkout -b daily-watch
-#         git add plots/*.png
-#         git commit -m "update plots"
-#     - name: Push changes
-#       uses: ad-m/github-push-action@master
-#       with:
-#         github_token: ${{ secrets.GITHUB_TOKEN }}
-#         branch: 'daily-watch'
-#         force: true
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Update plots
+      run: |
+        python -m pip install -r requirements.txt
+        python watch-tokyo-confirmed-patients.py
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git checkout -b daily-watch
+        git add plots/*.png
+        git commit -m "update plots"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: 'daily-watch'
+        force: true
